@@ -15,12 +15,13 @@ function outer() {
   another variable called 'inner'. */
   
   // Code Here
+  var inner = outer();
   
   //Once you do that, invoke inner.
   
   //Code Here
   
-  
+  inner();
   
   
   
@@ -51,7 +52,9 @@ function outer() {
   */
   
     //Code Here
-  
+  var callJake = callFriend('Jake');
+
+
   
   
   
@@ -69,13 +72,20 @@ function outer() {
   properly. */
   
   //Code Here
+  function makeCounter() {
+    var counter = 0;
+    return function() {
+      counter++;
+      return counter;
+    }
+  }
   
   //Uncomment this once you make your function
-  //   var count = makeCounter();
-  //   count(); // 1
-  //   count(); // 2
-  //   count(); // 3
-  //   count(); // 4
+    var count = makeCounter();
+    count(); // 1
+    count(); // 2
+    count(); // 3
+    count(); // 4
   
   
   
@@ -106,7 +116,14 @@ function outer() {
   
   
     return {
-
+      inc: function() {
+        value++;
+        return value;
+      },
+      dec: function() {
+        value--;
+        return value
+      }
     }
   }
   
@@ -142,10 +159,12 @@ function outer() {
     var welcomeText = 'You\'re doing awesome, keep it up ';
   
     // code message function here.
-  
+    function message() {
+      return welcomeText + firstname + ' ' + lastname + '.';
+    }
   
     //Uncommment this to return the value of your invoked message function
-    //return message();
+    return message();
   
   }
   
@@ -184,6 +203,9 @@ function outer() {
     // outside our lexical scope
     return {
       // Code here.
+      publicMethod: function() {
+        return privateMethod();
+      }
     };
   
   })();
@@ -236,10 +258,25 @@ function outer() {
   
   function timeOutCounter() {
     for (var i = 0; i <= 5; i++) {
-      setTimeout(function() {
+      setTimeout(function (i) { //pass in i
+        //CODE HERE
+        return function () { //return function
           console.log(i)
-      }, i * 1000)
+        }
+      }(i), i * 1000) //add (i) right after parenthesis at the end of the function so the function knows what i is on the next iteration
     }
   }
   timeOutCounter();
-  
+
+  // var closure = function(i) {
+  //   return function() {
+  //     console.log(i);
+  //   };
+  // };
+ 
+  // function timeOutCounter() {
+  //   for (var i = 0; i <= 5; i++) {
+  //     setTimeout(closure(i), i * 1000);
+  //   }
+  // }
+  // timeOutCounter();
